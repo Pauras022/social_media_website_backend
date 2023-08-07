@@ -1,63 +1,63 @@
-const router = require('express').Router()
+const router = require("express").Router();
 const {
   me,
   fetchUserById,
-  fetchRecommandedUsers,
-  fetchSendedFriendRequest,
+  fetchRecommendedUsers,
+  fetchSentFriendRequest,
   fetchIncommingFriendRequest,
-  searchUsers
-} = require('../controllers/User/FetchUser')
+  searchUsers,
+} = require("../controllers/User/FetchUser");
 
 const {
   sendMessageToFriend,
   getFriendMessages,
-} = require('../controllers/User/Chat')
+} = require("../controllers/User/Chat");
 const {
   sendFriendRequest,
   acceptFriendRequest,
   declineFriendRequest,
-  cancelSendedFriendRequest,
+  cancelSentFriendRequest,
   updateProfilePic,
   updateCoverPic,
   updateProfile,
   clearNotification,
-} = require('../controllers/User/UserAction')
-const authRequired = require('../middleware/AuthRequired')
+} = require("../controllers/User/UserAction");
+const authRequired = require("../middleware/AuthRequired");
 
-router.get('/me', authRequired, me)
-router.get('/recommanded_users', authRequired, fetchRecommandedUsers)
-router.get('/friend_request/sended', authRequired, fetchSendedFriendRequest)
+router.get("/me", authRequired, me);
+router.get("/recommended_users", authRequired, fetchRecommendedUsers);
+router.get("/friend_request/sent", authRequired, fetchSentFriendRequest);
 router.get(
-  '/friend_request/received',
+  "/friend_request/received",
   authRequired,
-  fetchIncommingFriendRequest,
-)
+  fetchIncommingFriendRequest
+);
 
-router.get('/search', searchUsers)
-router.get('/friend_request/:userId/send', authRequired, sendFriendRequest)
+router.get("/search", searchUsers);
+router.get("/friend_request/:userId/send", authRequired, sendFriendRequest);
 router.get(
-  '/friend_request/:requestId/accept',
+  "/friend_request/:requestId/accept",
   authRequired,
-  acceptFriendRequest,
-)
+  acceptFriendRequest
+);
 router.get(
-  '/friend_request/:requestId/decline',
+  "/friend_request/:requestId/decline",
   authRequired,
-  declineFriendRequest,
-)
+  declineFriendRequest
+);
 router.get(
-  '/friend_request/:requestId/cancel',
+  "/friend_request/:requestId/cancel",
   authRequired,
-  cancelSendedFriendRequest,
-)
-router.get('/:user_id', authRequired, fetchUserById)
+  cancelSentFriendRequest
+);
+router.get("/:user_id", authRequired, fetchUserById);
 
-router.post('/chat/:friendId/send', authRequired, sendMessageToFriend)
-router.get('/chat/:friendId/get_messages', authRequired, getFriendMessages)
+router.post("/chat/:friendId/send", authRequired, sendMessageToFriend);
+router.get("/chat/:friendId/get_messages", authRequired, getFriendMessages);
 
-router.put('/profile_pic/update', authRequired, updateProfilePic)
-router.put('/cover_pic/update', authRequired, updateCoverPic)
-router.put('/update_profile/:input', authRequired, updateProfile)
-router.delete('/notifications/clear', authRequired, clearNotification)
+router.put("/profile_pic/update", authRequired, updateProfilePic);
+router.put("/cover_pic/update", authRequired, updateCoverPic);
+router.put("/update_profile/:input", authRequired, updateProfile);
+router.delete("/notifications/clear", authRequired, clearNotification);
 
-module.exports = router
+module.exports = router;
